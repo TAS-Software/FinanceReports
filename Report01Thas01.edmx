@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="report01thas01Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="StockLocations">
+          <Key>
+            <PropertyRef Name="LocationID" />
+          </Key>
+          <Property Name="LocationCode" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="LocationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Location" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ItemsInLocation" Type="int" Nullable="false" />
+          <Property Name="LastModifiedDate" Type="datetime" Nullable="false" />
+          <Property Name="DefaultLocation" Type="bit" Nullable="false" />
+          <Property Name="Quarantined" Type="bit" Nullable="false" />
+          <Property Name="ExcludeMRP" Type="bit" Nullable="false" />
+          <Property Name="Flowline" Type="bit" Nullable="false" />
+          <Property Name="ExcludeAssignments" Type="bit" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="260" />
+        </EntityType>
+        <Function Name="THAS_CONNECT_FinanceQuarantineBatches" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="THAS" />
+        <Function Name="THAS_CONNECT_StockValuationReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="THAS" />
+        <EntityContainer Name="report01thas01ModelStoreContainer">
+          <EntitySet Name="StockLocations" EntityType="Self.StockLocations" Schema="Stores" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="report01thas01Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="report01thas01Entities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="THAS_CONNECT_StockValuationReport" ReturnType="Collection(report01thas01Model.THAS_CONNECT_StockValuationReport_Result)" />
+          <EntitySet Name="StockLocations" EntityType="report01thas01Model.StockLocation" />
+          <FunctionImport Name="THAS_CONNECT_FinanceQuarantineBatches" ReturnType="Collection(report01thas01Model.THAS_CONNECT_FinanceQuarantineBatches_Result)" />
+        </EntityContainer>
+        <ComplexType Name="THAS_CONNECT_StockValuationReport_Result">
+          <Property Type="String" Name="Batch" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="Source" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Location" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Bin" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Method_Version" Nullable="true" MaxLength="151" />
+          <Property Type="Decimal" Name="Batch_On_Hand_Stock" Nullable="false" Precision="18" Scale="6" />
+          <Property Type="Decimal" Name="Planned_Material_Cost_" Nullable="true" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Actual_Material_Cost" Nullable="true" Precision="38" Scale="6" />
+          <Property Type="DateTime" Name="Receipt_Date" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="Transaction_Date" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="Last_Stock_Check_Date" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="Last_Issue_Date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Supplier_Name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Costed" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="Part_Number" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="Part_Description" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="Method_Type" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Unit_Of_Measure" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="Default_Location_Code" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Default_Bin" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Product_Group_Code" Nullable="false" MaxLength="10" />
+          <Property Type="Decimal" Name="Material_Cost__" Nullable="true" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Material_Cost_Per_Unit__" Nullable="true" Precision="38" Scale="6" />
+          <Property Type="Int32" Name="Age_Days" Nullable="true" />
+          <Property Type="Int32" Name="Age_Months" Nullable="true" />
+          <Property Type="DateTime" Name="Adjusted_Last_Issue_Date" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="Adjusted_Age_Days" Nullable="true" />
+          <Property Type="Int32" Name="Adjusted_Age_Months" Nullable="true" />
+          <Property Type="String" Name="Ageing_Bucket" Nullable="false" MaxLength="6" />
+          <Property Type="String" Name="Exclude_From_Provision" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="Provision____TAS_method_" Nullable="false" MaxLength="4" />
+          <Property Type="Decimal" Name="Provision_Cost__TAS_method_" Nullable="true" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Adjust_Value__TAS_method_" Nullable="true" Precision="38" Scale="6" />
+          <Property Type="String" Name="Seat_" Nullable="false" MaxLength="3" />
+          <Property Type="String" Name="Type_Of_Stock" Nullable="false" MaxLength="7" />
+          <Property Type="String" Name="Inventory_Type" Nullable="false" MaxLength="12" />
+          <Property Type="String" Name="Notes" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="StockLocation">
+          <Key>
+            <PropertyRef Name="LocationID" />
+          </Key>
+          <Property Name="LocationCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LocationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Location" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ItemsInLocation" Type="Int32" Nullable="false" />
+          <Property Name="LastModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DefaultLocation" Type="Boolean" Nullable="false" />
+          <Property Name="Quarantined" Type="Boolean" Nullable="false" />
+          <Property Name="ExcludeMRP" Type="Boolean" Nullable="false" />
+          <Property Name="Flowline" Type="Boolean" Nullable="false" />
+          <Property Name="ExcludeAssignments" Type="Boolean" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="260" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <ComplexType Name="THAS_CONNECT_FinanceQuarantineBatches_Result">
+          <Property Type="String" Name="PartNumber" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="PartDescription" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="ProductGroupCode" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="RCode" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Current_UOM" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="Batch_UOM" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="Method_Type" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="StockLevel" Nullable="false" Precision="18" Scale="6" />
+          <Property Type="String" Name="ReceiptBatchNumber" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="Bin" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Batch_Supplier" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Top_Rated_Supplier" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Buyer" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="LocationCode" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Transaction_Type" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="Transaction_Date" Nullable="true" />
+          <Property Type="String" Name="Transaction_Time" Nullable="true" MaxLength="8" />
+          <Property Type="String" Name="TransactedBy" Nullable="true" MaxLength="101" />
+          <Property Type="Decimal" Name="Material_Cost__" Nullable="true" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Material_Cost_Per_Unit__" Nullable="true" Precision="38" Scale="6" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="report01thas01ModelStoreContainer" CdmEntityContainer="report01thas01Entities" >
+          <FunctionImportMapping FunctionImportName="THAS_CONNECT_StockValuationReport" FunctionName="report01thas01Model.Store.THAS_CONNECT_StockValuationReport">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="report01thas01Model.THAS_CONNECT_StockValuationReport_Result">
+                <ScalarProperty Name="Batch" ColumnName="Batch" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Bin" ColumnName="Bin" />
+                <ScalarProperty Name="Method_Version" ColumnName="Method/Version" />
+                <ScalarProperty Name="Batch_On_Hand_Stock" ColumnName="Batch On Hand Stock" />
+                <ScalarProperty Name="Planned_Material_Cost_" ColumnName="Planned Material Cost " />
+                <ScalarProperty Name="Actual_Material_Cost" ColumnName="Actual Material Cost" />
+                <ScalarProperty Name="Receipt_Date" ColumnName="Receipt Date" />
+                <ScalarProperty Name="Transaction_Date" ColumnName="Transaction Date" />
+                <ScalarProperty Name="Last_Stock_Check_Date" ColumnName="Last Stock Check Date" />
+                <ScalarProperty Name="Last_Issue_Date" ColumnName="Last Issue Date" />
+                <ScalarProperty Name="Supplier_Name" ColumnName="Supplier Name" />
+                <ScalarProperty Name="Costed" ColumnName="Costed" />
+                <ScalarProperty Name="Part_Number" ColumnName="Part Number" />
+                <ScalarProperty Name="Part_Description" ColumnName="Part Description" />
+                <ScalarProperty Name="Method_Type" ColumnName="Method Type" />
+                <ScalarProperty Name="Unit_Of_Measure" ColumnName="Unit Of Measure" />
+                <ScalarProperty Name="Default_Location_Code" ColumnName="Default Location Code" />
+                <ScalarProperty Name="Default_Bin" ColumnName="Default Bin" />
+                <ScalarProperty Name="Product_Group_Code" ColumnName="Product Group Code" />
+                <ScalarProperty Name="Material_Cost__" ColumnName="Material Cost £" />
+                <ScalarProperty Name="Material_Cost_Per_Unit__" ColumnName="Material Cost Per Unit £" />
+                <ScalarProperty Name="Age_Days" ColumnName="Age Days" />
+                <ScalarProperty Name="Age_Months" ColumnName="Age Months" />
+                <ScalarProperty Name="Adjusted_Last_Issue_Date" ColumnName="Adjusted Last Issue Date" />
+                <ScalarProperty Name="Adjusted_Age_Days" ColumnName="Adjusted Age Days" />
+                <ScalarProperty Name="Adjusted_Age_Months" ColumnName="Adjusted Age Months" />
+                <ScalarProperty Name="Ageing_Bucket" ColumnName="Ageing Bucket" />
+                <ScalarProperty Name="Exclude_From_Provision" ColumnName="Exclude From Provision" />
+                <ScalarProperty Name="Provision____TAS_method_" ColumnName="Provision % (TAS method)" />
+                <ScalarProperty Name="Provision_Cost__TAS_method_" ColumnName="Provision Cost (TAS method)" />
+                <ScalarProperty Name="Adjust_Value__TAS_method_" ColumnName="Adjust Value (TAS method)" />
+                <ScalarProperty Name="Seat_" ColumnName="Seat?" />
+                <ScalarProperty Name="Type_Of_Stock" ColumnName="Type Of Stock" />
+                <ScalarProperty Name="Inventory_Type" ColumnName="Inventory Type" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="StockLocations">
+            <EntityTypeMapping TypeName="report01thas01Model.StockLocation">
+              <MappingFragment StoreEntitySet="StockLocations">
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ExcludeAssignments" ColumnName="ExcludeAssignments" />
+                <ScalarProperty Name="Flowline" ColumnName="Flowline" />
+                <ScalarProperty Name="ExcludeMRP" ColumnName="ExcludeMRP" />
+                <ScalarProperty Name="Quarantined" ColumnName="Quarantined" />
+                <ScalarProperty Name="DefaultLocation" ColumnName="DefaultLocation" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="ItemsInLocation" ColumnName="ItemsInLocation" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="THAS_CONNECT_FinanceQuarantineBatches" FunctionName="report01thas01Model.Store.THAS_CONNECT_FinanceQuarantineBatches">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="report01thas01Model.THAS_CONNECT_FinanceQuarantineBatches_Result">
+                <ScalarProperty Name="PartNumber" ColumnName="PartNumber" />
+                <ScalarProperty Name="PartDescription" ColumnName="PartDescription" />
+                <ScalarProperty Name="ProductGroupCode" ColumnName="ProductGroupCode" />
+                <ScalarProperty Name="RCode" ColumnName="RCode" />
+                <ScalarProperty Name="Current_UOM" ColumnName="Current UOM" />
+                <ScalarProperty Name="Batch_UOM" ColumnName="Batch UOM" />
+                <ScalarProperty Name="Method_Type" ColumnName="Method Type" />
+                <ScalarProperty Name="StockLevel" ColumnName="StockLevel" />
+                <ScalarProperty Name="ReceiptBatchNumber" ColumnName="ReceiptBatchNumber" />
+                <ScalarProperty Name="Bin" ColumnName="Bin" />
+                <ScalarProperty Name="Batch_Supplier" ColumnName="Batch Supplier" />
+                <ScalarProperty Name="Top_Rated_Supplier" ColumnName="Top Rated Supplier" />
+                <ScalarProperty Name="Buyer" ColumnName="Buyer" />
+                <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+                <ScalarProperty Name="Transaction_Type" ColumnName="Transaction Type" />
+                <ScalarProperty Name="Transaction_Date" ColumnName="Transaction Date" />
+                <ScalarProperty Name="Transaction_Time" ColumnName="Transaction Time" />
+                <ScalarProperty Name="TransactedBy" ColumnName="TransactedBy" />
+                <ScalarProperty Name="Material_Cost__" ColumnName="Material Cost £" />
+                <ScalarProperty Name="Material_Cost_Per_Unit__" ColumnName="Material Cost Per Unit £" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
