@@ -27,7 +27,6 @@ namespace FinanceReports
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<StockLocation> StockLocations { get; set; }
     
         public virtual ObjectResult<THAS_CONNECT_StockValuationReport_Result> THAS_CONNECT_StockValuationReport()
         {

@@ -5,26 +5,9 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="report01thas01Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="StockLocations">
-          <Key>
-            <PropertyRef Name="LocationID" />
-          </Key>
-          <Property Name="LocationCode" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="LocationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Location" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="ItemsInLocation" Type="int" Nullable="false" />
-          <Property Name="LastModifiedDate" Type="datetime" Nullable="false" />
-          <Property Name="DefaultLocation" Type="bit" Nullable="false" />
-          <Property Name="Quarantined" Type="bit" Nullable="false" />
-          <Property Name="ExcludeMRP" Type="bit" Nullable="false" />
-          <Property Name="Flowline" Type="bit" Nullable="false" />
-          <Property Name="ExcludeAssignments" Type="bit" Nullable="false" />
-          <Property Name="Address" Type="nvarchar" MaxLength="260" />
-        </EntityType>
         <Function Name="THAS_CONNECT_FinanceQuarantineBatches" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="THAS" />
         <Function Name="THAS_CONNECT_StockValuationReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="THAS" />
         <EntityContainer Name="report01thas01ModelStoreContainer">
-          <EntitySet Name="StockLocations" EntityType="Self.StockLocations" Schema="Stores" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -32,7 +15,6 @@
       <Schema Namespace="report01thas01Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="report01thas01Entities" annotation:LazyLoadingEnabled="true" >
           <FunctionImport Name="THAS_CONNECT_StockValuationReport" ReturnType="Collection(report01thas01Model.THAS_CONNECT_StockValuationReport_Result)" />
-          <EntitySet Name="StockLocations" EntityType="report01thas01Model.StockLocation" />
           <FunctionImport Name="THAS_CONNECT_FinanceQuarantineBatches" ReturnType="Collection(report01thas01Model.THAS_CONNECT_FinanceQuarantineBatches_Result)" />
         </EntityContainer>
         <ComplexType Name="THAS_CONNECT_StockValuationReport_Result">
@@ -74,22 +56,6 @@
           <Property Type="String" Name="Inventory_Type" Nullable="false" MaxLength="12" />
           <Property Type="String" Name="Notes" Nullable="true" />
         </ComplexType>
-        <EntityType Name="StockLocation">
-          <Key>
-            <PropertyRef Name="LocationID" />
-          </Key>
-          <Property Name="LocationCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="LocationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Location" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ItemsInLocation" Type="Int32" Nullable="false" />
-          <Property Name="LastModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DefaultLocation" Type="Boolean" Nullable="false" />
-          <Property Name="Quarantined" Type="Boolean" Nullable="false" />
-          <Property Name="ExcludeMRP" Type="Boolean" Nullable="false" />
-          <Property Name="Flowline" Type="Boolean" Nullable="false" />
-          <Property Name="ExcludeAssignments" Type="Boolean" Nullable="false" />
-          <Property Name="Address" Type="String" MaxLength="260" FixedLength="false" Unicode="true" />
-        </EntityType>
         <ComplexType Name="THAS_CONNECT_FinanceQuarantineBatches_Result">
           <Property Type="String" Name="PartNumber" Nullable="true" MaxLength="25" />
           <Property Type="String" Name="PartDescription" Nullable="true" MaxLength="255" />
@@ -161,23 +127,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="StockLocations">
-            <EntityTypeMapping TypeName="report01thas01Model.StockLocation">
-              <MappingFragment StoreEntitySet="StockLocations">
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="ExcludeAssignments" ColumnName="ExcludeAssignments" />
-                <ScalarProperty Name="Flowline" ColumnName="Flowline" />
-                <ScalarProperty Name="ExcludeMRP" ColumnName="ExcludeMRP" />
-                <ScalarProperty Name="Quarantined" ColumnName="Quarantined" />
-                <ScalarProperty Name="DefaultLocation" ColumnName="DefaultLocation" />
-                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
-                <ScalarProperty Name="ItemsInLocation" ColumnName="ItemsInLocation" />
-                <ScalarProperty Name="Location" ColumnName="Location" />
-                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
-                <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="THAS_CONNECT_FinanceQuarantineBatches" FunctionName="report01thas01Model.Store.THAS_CONNECT_FinanceQuarantineBatches">
             <ResultMapping>
               <ComplexTypeMapping TypeName="report01thas01Model.THAS_CONNECT_FinanceQuarantineBatches_Result">

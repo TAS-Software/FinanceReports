@@ -19,20 +19,18 @@ namespace FinanceReports
 
             if (checkDate.Day == 1)
             {
-
+                RunQuaratineBatchesReport();
+                RunStockValuationReport();
+                SendMail("Finance Reports", "Both Ran. " + checkDate.Day);
             }
             else
             {
-
+                RunQuaratineBatchesReport();
+                SendMail("Finance Reports", "Only Quarantine Ran Today. " + checkDate.Day);
             }
-
-
-            
-
-            
         }
 
-        private static void RunStockValuationReport()
+        private static void RunQuaratineBatchesReport()
         {
             if (!IsDuringRestore(DateTime.Now))
             {
@@ -44,7 +42,7 @@ namespace FinanceReports
                         Regex rgx = new Regex(regexPattern);
 
                         reportDB.Database.CommandTimeout = 10000;
-                        Console.WriteLine("Begin Retreiving Stock Valuation Dataset...");
+                        Console.WriteLine("Begin Retreiving Quarantine Batches Dataset...");
                         var financeQuaratineDataset = reportDB.THAS_CONNECT_FinanceQuarantineBatches().ToList();
 
                         Console.WriteLine("Successfully Retreived Dataset");
@@ -53,11 +51,11 @@ namespace FinanceReports
                         FileInfo fileInfo;
                         string theDate = DateTime.Now.ToString("yyyyMMdd");
                         string theDateHours = DateTime.Now.ToString("yyyyMMdd HH.mm.ss");
-                        if (CreateDirectoryStructure(out fileInfo, theDate, theDateHours, @"FinanceQuarantineBatches", "Test", true)) //Finance Reports
+                        if (CreateDirectoryStructure(out fileInfo, theDate, theDateHours, @"FinanceQuarantineBatches", "Finance Reports", true)) //Finance Reports
                         {
                             using (ExcelPackage excelPackage = new ExcelPackage(fileInfo))
                             {
-                                var workSheet = excelPackage.Workbook.Worksheets.Add("StockValuation");
+                                var workSheet = excelPackage.Workbook.Worksheets.Add("QuarantineBatches");
                                 workSheet.Cells["A1"].LoadFromCollection(financeQuaratineDataset, true, OfficeOpenXml.Table.TableStyles.Medium2);
                                 int rowCount = workSheet.Dimension.Rows;
 
@@ -65,6 +63,7 @@ namespace FinanceReports
                                 workSheet.View.ZoomScale = 75;
                                 excelPackage.Save();
                                 Console.WriteLine("Successfully Generated Finance Quarantine Batches Costings Excel File");
+                                SendMail("Quarantine Batches Report", "Run Successfully");
                             }
                         }
                     }
@@ -76,7 +75,7 @@ namespace FinanceReports
             }
         }
 
-        private static void RunQuaratineBatchesReport()
+        private static void RunStockValuationReport()
         {
             if (!IsDuringRestore(DateTime.Now))
             {
@@ -131,7 +130,7 @@ namespace FinanceReports
                         FileInfo fileInfo;
                         string theDate = DateTime.Now.ToString("yyyyMMdd");
                         string theDateHours = DateTime.Now.ToString("yyyyMMdd HH.mm.ss");
-                        if (CreateDirectoryStructure(out fileInfo, theDate, theDateHours, @"StockValuation12AM", "Test", true)) //Finance Reports HEHE
+                        if (CreateDirectoryStructure(out fileInfo, theDate, theDateHours, @"StockValuation12AM", "Finance Reports", true)) //Finance Reports
                         {
                             using (ExcelPackage excelPackage = new ExcelPackage(fileInfo))
                             {
@@ -149,6 +148,7 @@ namespace FinanceReports
                                 workSheet.View.ZoomScale = 75;
                                 excelPackage.Save();
                                 Console.WriteLine("Successfully Generated Stock Valuation Costings Excel File");
+                                SendMail("Stock Valuation Report", "Run Successfully");
                             }
                         }
                     }
